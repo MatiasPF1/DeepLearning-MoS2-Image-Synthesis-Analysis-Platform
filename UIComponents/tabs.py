@@ -8,7 +8,7 @@ def left_tabs():
                 html.Button(     
                         [html.I(className="fa-solid fa-atom me-2"), "Material Parameters"],
                         id="btn-material",
-                        className="param-btn active-param-btn"),      #Active by Defau.t
+                        className="param-btn active-param-btn"),      #Active by Default
                 
                 #2-Second Button: Microscope Parameters
                 html.Button(

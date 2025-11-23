@@ -13,6 +13,8 @@ from UIComponents.SettingsGeneration import generation_settings
 #Second Tab Components 
 from UIComponents.BasicMicroscopeSettings import Microscope_Settings
 from UIComponents.aberrationCoeficcients import Abberation_Coeficients
+from UIComponents.ADF_Settings import ADF_Settings
+from UIComponents.GaussianParameters import Gaussian_Parameters
 
 
 
@@ -38,7 +40,9 @@ app.layout = html.Div([
 
                     #Miscroscope Section Panels
                     Microscope_Settings(),
-                    Abberation_Coeficients()
+                    Abberation_Coeficients(),
+                    ADF_Settings(),
+                    Gaussian_Parameters(),
                 ],
                 className="tab-with-panel"
             ),
@@ -69,7 +73,8 @@ app.layout = html.Div([
     #Second Tab Outputs
     Output("microscope-panel", "style"),
     Output("aberration-panel", "style"),
-
+    Output("ADF_Panel", "style"),
+    Output("Gausian_Panel","style"),
 
     #Click Inputs by User
     Input("btn-material", "n_clicks"),
@@ -93,7 +98,9 @@ def toggle_buttons(material_clicks, microscope_clicks):
             visible,                          # Chalcogen defects panel Visible
 
             hidden,                        # Microscope panel Hidden
-            hidden                         # Aberration panel Hidden
+            hidden,                         # Aberration panel Hidden
+            hidden,                         # ADF panel Hidden
+            hidden                          # Gaussian Panel Hidden
         )
 
                                         #2- User Selection of Button
@@ -111,7 +118,10 @@ def toggle_buttons(material_clicks, microscope_clicks):
         visible,  # metal defects
         visible,  # chalcogen defects
         hidden,   # microscope is hidden
-        hidden    # aberration is hidden
+        hidden,    # aberration is hidden
+        hidden,    #ADF is hidden 
+        hidden     #gaussian is Hidden 
+        
     )
 
     # If Microscope Button Clicked
@@ -123,7 +133,9 @@ def toggle_buttons(material_clicks, microscope_clicks):
         hidden,   # metal defects is hidden
         hidden,   # chalcogen defects is hidden
         visible,  # microscope
-        visible   # aberration
+        visible,   # aberration
+        visible,   #ADF
+        visible    #Gaussian
     )
 
 
