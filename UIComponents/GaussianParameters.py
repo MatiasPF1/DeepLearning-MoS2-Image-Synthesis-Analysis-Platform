@@ -16,6 +16,7 @@ def Gaussian_Parameters():
                         [
                             html.Label("Source Size Mean(nm)"),
                             dcc.Input(
+                                id="Source_Size_Mean",
                                 type="number",
                                 value=0,
                                 className="input-field"
@@ -23,6 +24,7 @@ def Gaussian_Parameters():
 
                             html.Label("Defocus Spread Mean(A)"),
                             dcc.Input(
+                                id="Defocus_Spread_Mean",
                                 type="number",
                                 value=0,
                                 className="input-field"
@@ -30,6 +32,7 @@ def Gaussian_Parameters():
 
                             html.Label("Probe Current Mean(A)"),
                             dcc.Input(
+                                id="Probe_Current_Mean",
                                 type="number",
                                 value=0,
                                 className="input-field"
@@ -43,6 +46,7 @@ def Gaussian_Parameters():
                         [
                             html.Label("Source Size Std(nm)"),
                             dcc.Input(
+                                id="Source_Size_Std",
                                 type="number",
                                 value=0,
                                 className="input-field"
@@ -50,6 +54,7 @@ def Gaussian_Parameters():
 
                             html.Label("Defocus Spread Stf(A)"),
                             dcc.Input(
+                                id="Defocus_Spread_Stf",
                                 type="number",
                                 value=0,
                                 className="input-field"
@@ -57,6 +62,7 @@ def Gaussian_Parameters():
 
                              html.Label("Probe Current Std(A)"),
                             dcc.Input(
+                                id="Probe_Current_Std",
                                 type="number",
                                 value=0,
                                 className="input-field"
