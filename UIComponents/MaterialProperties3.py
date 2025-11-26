@@ -15,7 +15,6 @@ def chalcogen_site_defects():
                             dcc.Input(
                                 id="sub-atom-chal",
                                 type="number",
-                                value=0,
                                 className="input-field"
                             ),
 
@@ -23,7 +22,6 @@ def chalcogen_site_defects():
                             dcc.Input(
                                 id="chal-sub-conc",
                                 type="number",
-                                value=0.000,
                                 step=0.001,
                                 max=1.000,
                                 className="input-field"
@@ -33,7 +31,6 @@ def chalcogen_site_defects():
                             dcc.Input(
                                 id="vac-one-conc",
                                 type="number",
-                                value=0.000,
                                 step=0.001,
                                 max=1.000,
                                 className="input-field"
@@ -49,7 +46,6 @@ def chalcogen_site_defects():
                             dcc.Input(
                                 id="vac-two-conc",
                                 type="number",
-                                value=0.000,
                                 step=0.001,
                                 max=1.000,
                                 className="input-field"
@@ -59,7 +55,6 @@ def chalcogen_site_defects():
                             dcc.Input(
                                 id="sub-two-conc",
                                 type="number",
-                                value=0.000,
                                 step=0.001,
                                 max=1.000,
                                 className="input-field"
@@ -69,7 +64,6 @@ def chalcogen_site_defects():
                             dcc.Input(
                                 id="sub-one-conc",
                                 type="number",
-                                value=0.000,
                                 step=0.001,
                                 max=1.000,
                                 className="input-field"

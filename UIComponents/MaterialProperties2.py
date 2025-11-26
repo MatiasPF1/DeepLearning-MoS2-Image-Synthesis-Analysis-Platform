@@ -15,7 +15,6 @@ def metal_site_defects():
                             dcc.Input(
                                 id="sub-atom-metal",
                                 type="number",
-                                value=0,
                                 className="input-field"
                             ),
 
@@ -23,7 +22,6 @@ def metal_site_defects():
                             dcc.Input(
                                 id="metal-sub-conc",
                                 type="number",
-                                value=0.000,
                                 step=0.001,
                                 max=1.000,
                                 className="input-field"
@@ -39,7 +37,6 @@ def metal_site_defects():
                             dcc.Input(
                                 id="metal-vac-conc",
                                 type="number",
-                                value=0.080,
                                 step=0.001,
                                 max=1.000,
                                 className="input-field"

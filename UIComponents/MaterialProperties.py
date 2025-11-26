@@ -23,7 +23,6 @@ def material_properties():
                             dcc.Input(
                                 id="pixel-size",
                                 type="number",
-                                value=0.1,
                                 className="input-field"
                             ),
 
@@ -31,7 +30,6 @@ def material_properties():
                             dcc.Input(
                                 id="metal-atom",
                                 type="number",
-                                value=42,
                                 className="input-field"
                             )
                         ],
@@ -45,7 +43,6 @@ def material_properties():
                             dcc.Input(
                                 id="lattice-const",
                                 type="number",
-                                value=3.184,
                                 className="input-field"
                             ),
 
@@ -53,7 +50,6 @@ def material_properties():
                             dcc.Input(
                                 id="img-size",
                                 type="number",
-                                value=512,
                                 className="input-field"
                             ),
 
@@ -61,7 +57,6 @@ def material_properties():
                             dcc.Input(
                                 id="chal-atom",
                                 type="number",
-                                value=16,
                                 className="input-field"
                             )
                         ],

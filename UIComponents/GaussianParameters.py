@@ -18,7 +18,6 @@ def Gaussian_Parameters():
                             dcc.Input(
                                 id="src-size-mean",
                                 type="number",
-                                value=0,
                                 className="input-field"
                             ),
 
@@ -26,7 +25,6 @@ def Gaussian_Parameters():
                             dcc.Input(
                                 id="defoc-spread-mean",
                                 type="number",
-                                value=0,
                                 className="input-field"
                             ),
 
@@ -34,7 +32,6 @@ def Gaussian_Parameters():
                             dcc.Input(
                                 id="probe-cur-mean",
                                 type="number",
-                                value=0,
                                 className="input-field"
                             ),
                         ],
@@ -48,7 +45,6 @@ def Gaussian_Parameters():
                             dcc.Input(
                                 id="src-size-std",
                                 type="number",
-                                value=0,
                                 className="input-field"
                             ),
 
@@ -56,7 +52,6 @@ def Gaussian_Parameters():
                             dcc.Input(
                                 id="defoc-spread-std",
                                 type="number",
-                                value=0,
                                 className="input-field"
                             ),
 
@@ -64,7 +59,6 @@ def Gaussian_Parameters():
                             dcc.Input(
                                 id="probe-cur-std",
                                 type="number",
-                                value=0,
                                 className="input-field"
                             ),
                         ],

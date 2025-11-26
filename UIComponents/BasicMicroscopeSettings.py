@@ -22,7 +22,6 @@ def Microscope_Settings():
                             dcc.Input(
                                 id="voltage",
                                 type="text",
-                                value=300,
                                 className="input-field"
                             ),
 
@@ -30,7 +29,6 @@ def Microscope_Settings():
                             dcc.Input(
                                 id="aperture",
                                 type="number",
-                                value=75,
                                 className="input-field"
                             ),
                         ],
@@ -44,7 +42,6 @@ def Microscope_Settings():
                             dcc.Input(
                                 id="defocus",
                                 type="number",
-                                value=25,
                                 className="input-field"
                             ),
 
@@ -52,7 +49,6 @@ def Microscope_Settings():
                             dcc.Input(
                                 id="dwell-time",
                                 type="number",
-                                value=1,
                                 className="input-field"
                             ),
                         ],

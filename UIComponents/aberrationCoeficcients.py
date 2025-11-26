@@ -20,8 +20,7 @@ def Abberation_Coeficients():
                             html.Label("Cs3 Mean(μm)"),
                             dcc.Input(
                                 id="cs3-mean",
-                                type="text",
-                                value=300,
+                                type="number",
                                 className="input-field"
                             ),
 
@@ -29,7 +28,6 @@ def Abberation_Coeficients():
                             dcc.Input(
                                 id="cs3-std",
                                 type="number",
-                                value=75,
                                 className="input-field"
                             ),
                         ],
@@ -43,7 +41,6 @@ def Abberation_Coeficients():
                             dcc.Input(
                                 id="cs5-mean",
                                 type="number",
-                                value=25,
                                 className="input-field"
                             ),
 
@@ -51,7 +48,6 @@ def Abberation_Coeficients():
                             dcc.Input(
                                 id="cs5-std",
                                 type="number",
-                                value=1,
                                 className="input-field"
                             ),
                         ],
