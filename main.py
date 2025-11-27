@@ -2,6 +2,7 @@ from dash import Dash, html, Input, Output, State, dcc
 import dash_bootstrap_components as dbc
 import dash
 
+
 #First Tab Components
 from UIComponents.Navbar import navbar
 from UIComponents.tabs import left_tabs
@@ -15,6 +16,9 @@ from UIComponents.BasicMicroscopeSettings import Microscope_Settings
 from UIComponents.aberrationCoeficcients import Abberation_Coeficients
 from UIComponents.ADF_Settings import ADF_Settings
 from UIComponents.GaussianParameters import Gaussian_Parameters
+
+# Callback For Display Vallues Collumn 
+from UIComponents.DisplayValues import register_display_values_callback
 
 
 # 0-Main UI Layout
@@ -100,6 +104,7 @@ def toggle_buttons(material_clicks, microscope_clicks):
         )
 
     # 2- User Selection of Button
+
     # Which button was clicked?
     ctx = dash.callback_context.triggered_id
 
@@ -201,35 +206,19 @@ def store_parameters(n_clicks, batch_size, mat_name, pixel_size, metal_atom,
     if not n_clicks:
         return dash.no_update, dash.no_update
     
-    # Validate all required inputs are provided
-    required_params = {
-        'Material Name': mat_name,
-        'Pixel Size': pixel_size,
-        'Metal Atom Number': metal_atom,
-        'Lattice Constant': lattice_const,
-        'Image Size': img_size,
-        'Chalcogen Atom Number': chal_atom,
-        'Voltage': voltage,
-        'Aperture': aperture,
-        'Defocus': defocus,
-        'Dwell Time': dwell_time,
-        'Cs3 Mean': cs3_mean,
-        'Cs3 Std': cs3_std,
-        'Cs5 Mean': cs5_mean,
-        'Cs5 Std': cs5_std,
-        'ADF Angle Min': adf_angle_min,
-        'ADF Angle Max': adf_angle_max,
-        'Source Size Mean': src_size_mean,
-        'Defocus Spread Mean': defoc_spread_mean,
-        'Probe Current Mean': probe_cur_mean,
-        'Source Size Std': src_size_std,
-        'Defocus Spread Std': defoc_spread_std,
-        'Probe Current Std': probe_cur_std,
-    }
+    # Validate that all required inputs are provided
+    required_values = [
+    mat_name, pixel_size, metal_atom, lattice_const, img_size, chal_atom,
+    voltage, aperture, defocus, dwell_time,
+    cs3_mean, cs3_std, cs5_mean, cs5_std,
+    adf_angle_min, adf_angle_max,
+    src_size_mean, defoc_spread_mean, probe_cur_mean,
+    src_size_std, defoc_spread_std, probe_cur_std
+    ]
     
     # Check for missing or invalid inputs - if any missing, don't store
-    for param_value in required_params.values():
-        if param_value is None or param_value == '':
+    for v in required_values:
+        if v is None or v == '':
             return dash.no_update, dash.no_update
     
     # All inputs are valid - create parameter dictionary
@@ -281,11 +270,12 @@ def store_parameters(n_clicks, batch_size, mat_name, pixel_size, metal_atom,
             'probe_current_std': probe_cur_std
         }
     }
+    
+    return parameters, ""
 
-    #Debugger test
-    print("STORED PARAMETERS:")
-    print(parameters)
-    return parameters, dash.no_update
+
+# Register display values callback
+register_display_values_callback(app)
 
 
 if __name__ == "__main__":

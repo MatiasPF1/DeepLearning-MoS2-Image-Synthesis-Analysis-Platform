@@ -1,6 +1,4 @@
-/* =======================================================================
-   GLOBAL LAYOUT + BACKGROUND
-   ======================================================================= */
+/*                                           GLOBAL LAYOUT + BACKGROUND                                                                */
 
 body {
     margin: 0;
@@ -23,9 +21,7 @@ body {
 
 
 
-/* =======================================================================
-   NAVBAR
-   ======================================================================= */
+/*                                         NAVBAR                                                                                        */
 
 .navbar-custom {
     background: #ffffff !important;
@@ -42,9 +38,7 @@ body {
 
 
 
-/* =======================================================================
-   PARAMETER TOGGLE BUTTONS (FATTER VERSION)
-   ======================================================================= */
+/*                                                   PARAMETER TOGGLE BUTTONS                                                          */
 
 .param-btn-container {
     display: flex;
@@ -80,9 +74,7 @@ body {
 
 
 
-/* =======================================================================
-   PANEL CARDS (MATERIAL, DEFECTS, MICROSCOPE, ETC)
-   ======================================================================= */
+/*                            PANEL CARDS (MATERIAL, DEFECTS, MICROSCOPE, ETC)                                                     */
 
 .material-panel,
 .material-panel2,
@@ -99,7 +91,7 @@ body {
     position: relative;
 }
 
-/* Top Accent Bar */
+
 .material-panel::before,
 .material-panel2::before,
 .microscope-panel::before,
@@ -129,9 +121,7 @@ body {
 
 
 
-/* =======================================================================
-   TEXT STYLES
-   ======================================================================= */
+/*                                                   TEXT STYLES                                                                 */
 
 .section-title {
     font-size: 22px;
@@ -148,9 +138,7 @@ body {
 
 
 
-/* =======================================================================
-   FORM GRID
-   ======================================================================= */
+/*                                                   FORM GRID                                                                         */
 
 .form-grid {
     display: flex;
@@ -172,9 +160,7 @@ label {
 
 
 
-/* =======================================================================
-   INPUT FIELDS
-   ======================================================================= */
+/*                                             INPUT FIELDS                                                                             */
 
 .input-field {
     width: 100%;
@@ -198,13 +184,11 @@ label {
 
 
 
-/* =======================================================================
-   RIGHT PANEL (GENERATION SETTINGS)
-   ======================================================================= */
+/*                                                  RIGHT PANEL (GENERATION SETTINGS)                                            */
 
 .right-panel-container {
     width: 380px;
-    margin-top: 150px;
+    margin-top: 120px;
 }
 
 .right-panel {
@@ -230,9 +214,7 @@ label {
 
 
 
-/* =======================================================================
-   GENERATE BUTTON
-   ======================================================================= */
+/*                                                         GENERATE BUTTON                                                              */
 
 .generate-btn {
     background: linear-gradient(120deg, #6a5cff, #9277ff);
@@ -261,9 +243,7 @@ label {
 
 
 
-/* =======================================================================
-   DROPDOWNS
-   ======================================================================= */
+/*                                               DROPDOWNS                                                                             */
 
 .batch-dropdown {
     border-radius: 10px !important;
@@ -274,4 +254,57 @@ label {
     font-size: 14px;
     font-weight: 600;
     color: #6d67e4;
+}
+
+/*                                              VALUES DISPLAY BOX                                                                      */
+
+.values-panel {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 30px 32px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+    margin-top: 100px;
+    position: relative;
+}
+
+.values-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5px;
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+    background: linear-gradient(90deg, #6d67e4, #8f77ff);
+}
+
+.values-display-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.value-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: #f9fafb;
+    border-radius: 8px;
+    border-left: 3px solid #6d67e4;
+    font-size: 13px;
+    color: #4a5568;
+}
+
+.value-row span:first-child {
+    font-weight: 600;
+    color: #2b2d42;
+}
+
+.value-text {
+    color: #6d67e4;
+    font-weight: 700;
+    margin-left: auto;
 }

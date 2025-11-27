@@ -45,6 +45,24 @@ def generation_settings():
                 ],
                 className="right-panel generation-panel"
             ),
+            # Values Display Box - appears below generation settings
+            values_display()
         ],
         className="right-panel-container"
+    )
+
+def values_display():
+    return html.Div(
+        [
+            html.Div(
+                [
+                    html.I(className="fas fa-clipboard-list", style={"marginRight": "10px"}),
+                    html.Span("Input Values")
+                ],
+                className="right-panel-title",
+                style={"marginTop": "30px"}
+            ),
+            html.Div(id="values-display-content", className="values-display-box")
+        ],
+        className="right-panel values-panel"
     )
