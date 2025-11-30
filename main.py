@@ -20,18 +20,15 @@ from UIComponents.GaussianParameters import Gaussian_Parameters
 # Callback For Display Vallues Collumn 
 from UIComponents.DisplayValues import register_display_values_callback
 
+# Import Generation module to update variables
+from Generation_Stem import Generation
+
 
 # 0-Main UI Layout
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 app.layout = html.Div([
     navbar,
-    
-    # Hidden storage component for parameters
-    dcc.Store(id='parameters-store', storage_type='memory'),
-    
-    # Alert for validation messages
-    html.Div(id='validation-alert', className='alert-container'),
     
     html.Div(
         [
@@ -137,10 +134,9 @@ def toggle_buttons(material_clicks, microscope_clicks):
         )
 
 
-# 2-Parameter Input Validation and Storage
+# 2-Store UI inputs directly to Generation.py variables
 @app.callback(
-    Output('parameters-store', 'data'),
-    Output('validation-alert', 'children'),
+    Output('generate-btn', 'n_clicks'),
     Input('generate-btn', 'n_clicks'),
     State('batch-size-dropdown', 'value'),
     
@@ -191,7 +187,7 @@ def toggle_buttons(material_clicks, microscope_clicks):
     
     prevent_initial_call=True
 )
-def store_parameters(n_clicks, batch_size, mat_name, pixel_size, metal_atom, 
+def store_parameters_RunGeneration(n_clicks, batch_size, mat_name, pixel_size, metal_atom, 
                      lattice_const, img_size, chal_atom, sub_atom_metal,
                      metal_sub_conc, metal_vac_conc, sub_atom_chal,
                      chal_sub_conc, vac_one_conc, vac_two_conc,
@@ -204,74 +200,45 @@ def store_parameters(n_clicks, batch_size, mat_name, pixel_size, metal_atom,
     
     # If button not clicked, do nothing
     if not n_clicks:
-        return dash.no_update, dash.no_update
+        return dash.no_update
     
-    # Validate that all required inputs are provided
-    required_values = [
-    mat_name, pixel_size, metal_atom, lattice_const, img_size, chal_atom,
-    voltage, aperture, defocus, dwell_time,
-    cs3_mean, cs3_std, cs5_mean, cs5_std,
-    adf_angle_min, adf_angle_max,
-    src_size_mean, defoc_spread_mean, probe_cur_mean,
-    src_size_std, defoc_spread_std, probe_cur_std
-    ]
+    # Update Generation.py variables directly
+    Generation.file_name = mat_name
+    Generation.pixel_size = float(pixel_size)
+    Generation.image_size = float(img_size)
+    Generation.metal_atom = int(metal_atom)
+    Generation.chalcogen_atom = int(chal_atom)
+    Generation.lattice_constant_a = float(lattice_const)
+    Generation.doped_metal_atom = int(sub_atom_metal) if sub_atom_metal else 0
+    Generation.metal_atom_concentration = float(metal_sub_conc) if metal_sub_conc else 0
+    Generation.metal_atom_vacancy_concentration = float(metal_vac_conc) if metal_vac_conc else 0
+    Generation.doped_chalcogen_atom = int(sub_atom_chal) if sub_atom_chal else 0
+    Generation.chalcogen_atom_concentration_two_subsititution = float(sub_two_conc) if sub_two_conc else 0
+    Generation.chalcogen_atom_concentration_one_subsititution = float(sub_one_conc) if sub_one_conc else 0
+    Generation.chalcogen_atom_concentration_one_vacancy = float(vac_one_conc) if vac_one_conc else 0
+    Generation.chalcogen_atom_concentration_two_vacancy = float(vac_two_conc) if vac_two_conc else 0
     
-    # Check for missing or invalid inputs - if any missing, don't store
-    for v in required_values:
-        if v is None or v == '':
-            return dash.no_update, dash.no_update
+    Generation.voltage = float(voltage)
+    Generation.Cs3_param_mean = float(cs3_mean)
+    Generation.Cs3_param_std = float(cs3_std)
+    Generation.Cs5_param_mean = float(cs5_mean)
+    Generation.Cs5_param_std = float(cs5_std)
+    Generation.df = float(defocus)
+    Generation.aperture = float(aperture)
+    Generation.ADF_angle_min = float(adf_angle_min)
+    Generation.ADF_angle_max = float(adf_angle_max)
+    Generation.Source_size_param_mean = float(src_size_mean)
+    Generation.Source_size_param_std = float(src_size_std)
+    Generation.defocus_spread_param_mean = float(defoc_spread_mean)
+    Generation.defocus_spread_param_std = float(defoc_spread_std)
+    Generation.probe_current_param_mean = float(probe_cur_mean)
+    Generation.probe_current_param_std = float(probe_cur_std)
+    Generation.dwell_time = float(dwell_time)
     
-    # All inputs are valid - create parameter dictionary
-    parameters = {
-        'batch_size': batch_size,
-        'material_properties': {
-            'material_name': mat_name,
-            'pixel_size': pixel_size,
-            'metal_atom_number': metal_atom,
-            'lattice_constant': lattice_const,
-            'image_size': img_size,
-            'chalcogen_atom_number': chal_atom
-        },
-        'metal_site_defects': {
-            'substitution_atom_number': sub_atom_metal,
-            'substitution_concentration': metal_sub_conc,
-            'vacancy_concentration': metal_vac_conc
-        },
-        'chalcogen_site_defects': {
-            'substitution_atom_number': sub_atom_chal,
-            'substitution_concentration': chal_sub_conc,
-            'vacancy_one_concentration': vac_one_conc,
-            'vacancy_two_concentration': vac_two_conc,
-            'substitution_two_concentration': sub_two_conc,
-            'substitution_one_concentration': sub_one_conc
-        },
-        'microscope_settings': {
-            'voltage': voltage,
-            'aperture': aperture,
-            'defocus': defocus,
-            'dwell_time': dwell_time
-        },
-        'aberration_coefficients': {
-            'cs3_mean': cs3_mean,
-            'cs3_std': cs3_std,
-            'cs5_mean': cs5_mean,
-            'cs5_std': cs5_std
-        },
-        'adf_settings': {
-            'angle_min': adf_angle_min,
-            'angle_max': adf_angle_max
-        },
-        'gaussian_parameters': {
-            'source_size_mean': src_size_mean,
-            'defocus_spread_mean': defoc_spread_mean,
-            'probe_current_mean': probe_cur_mean,
-            'source_size_std': src_size_std,
-            'defocus_spread_std': defoc_spread_std,
-            'probe_current_std': probe_cur_std
-        }
-    }
+    # Run the generation process
+    Generation.run_generation()
     
-    return parameters, ""
+    return n_clicks
 
 
 # Register display values callback
