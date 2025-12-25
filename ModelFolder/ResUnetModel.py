@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 
-# Built with help of Video: https://www.youtube.com/watch?v=H604sFU_0ME&t=6s
+# V1(getting a base) :From the Paper: Road Extraction for Dendrites using Deep Residual U-Net
 # Table I – Network Structure of ResUNet Given in the Papper 
 # --------------------------------------
 # Input: 224×224×3
@@ -148,7 +148,7 @@ if __name__ == "__main__":
     model= ResUnet()
     x=torch.randn((1,3,224,224)) #Batch Size of 1, 3 Channels, 224x224 Image
     out=model(x)
-    print(out.shape) #Should be 1x1x224x224
+    print(out.shape) #Should be 1x1x224x224d
 
 
 

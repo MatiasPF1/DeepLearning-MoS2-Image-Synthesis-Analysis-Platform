@@ -31,16 +31,21 @@ from XYZ_Params_Generation import Generation
 # Imports for STEM-Generation page 
 ##########################################################################################################################
 import importlib
-FileInputPanel = importlib.import_module("UIComponents-2.FileInputPanel")
+#  import the FileInputPanel module from UIComponents-2 directory
+FileInputPanel = importlib.import_module("UIComponents-2.FileInputPanel") 
+# Extract the file_input_panel function/component from the imported module
 file_input_panel = FileInputPanel.file_input_panel
+#  import the FileInputCallbacks module from UIComponents-2 directory
 FileInputCallbacks = importlib.import_module("UIComponents-2.FileInputCallbacks")
+# Extract the register_file_upload_callbacks function from the imported module
 register_file_upload_callbacks = FileInputCallbacks.register_file_upload_callbacks
+# In resume: we import the file input panel UI component and its associated callbacks so we can use them in the STEM-Generation section.
 
 
 
 ''''                                                Main UI Work                                                            '''
 ##########################################################################################################################
-#                                          0- ALL Modules/Options 
+#                                          0- ALL Modules/Options For The WebApp
 ##########################################################################################################################
 
 
@@ -105,7 +110,7 @@ def resunet_page():
 
 
 ##########################################################################################################################
-#                                          1- Main Layout
+#                                          1- Main Layout For the WebApp
 ##########################################################################################################################
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"], suppress_callback_exceptions=True)
@@ -150,15 +155,15 @@ def navigate_pages(xyz_clicks, pre_clicks, stem_clicks, resunet_clicks):
             xyz_generation_page(),
             active_class, inactive_class, inactive_class, inactive_class
         )
-    elif ctx == "nav-pre-processing":
-        return (
-            pre_processing_page(),
-            inactive_class, active_class, inactive_class, inactive_class
-        )
     elif ctx == "nav-stem-generation":
         return (
             stem_generation_page(),
             inactive_class, inactive_class, active_class, inactive_class
+        )
+    elif ctx == "nav-pre-processing":
+        return (
+            pre_processing_page(),
+            inactive_class, active_class, inactive_class, inactive_class
         )
     elif ctx == "nav-resunet":
         return (
