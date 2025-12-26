@@ -253,7 +253,17 @@ def toggle_buttons(material_clicks, microscope_clicks):
 #                               2-  Main Section Interactivity(3rd) -- Send inputs to the Generation Module
 ##########################################################################################################################
 
+def safe_float(value, default=0.0):
+    """Convert value to float, return default if None or empty"""
+    if value is None or value == '':
+        return default
+    return float(value)
 
+def safe_int(value, default=0):
+    """Convert value to int, return default if None or empty"""
+    if value is None or value == '':
+        return default
+    return int(value)
 
 @app.callback(
     Output('generate-btn', 'n_clicks'),
@@ -322,49 +332,42 @@ def store_parameters_RunGeneration(n_clicks, batch_size, mat_name, pixel_size, m
     if not n_clicks:
         return dash.no_update
     
-    # Update Generation.py variables directly
-    Generation.file_name = mat_name
-    Generation.pixel_size = float(pixel_size)
-    Generation.image_size = float(img_size)
-    Generation.metal_atom = int(metal_atom)
-    Generation.chalcogen_atom = int(chal_atom)
-    Generation.lattice_constant_a = float(lattice_const)
-    Generation.doped_metal_atom = int(sub_atom_metal) 
-    Generation.metal_atom_concentration = float(metal_sub_conc) 
-    Generation.metal_atom_vacancy_concentration = float(metal_vac_conc) 
-    Generation.doped_chalcogen_atom = int(sub_atom_chal) 
-    Generation.chalcogen_atom_concentration_two_subsititution = float(sub_two_conc) 
-    Generation.chalcogen_atom_concentration_one_subsititution = float(sub_one_conc) 
-    Generation.chalcogen_atom_concentration_one_vacancy = float(vac_one_conc) 
-    Generation.chalcogen_atom_concentration_two_vacancy = float(vac_two_conc) 
+    # Helper function converts None/empty to default values
+    # Update Generation.py variables with safe conversions
+    Generation.file_name = mat_name if mat_name else 'MoS2'
+    Generation.pixel_size = safe_float(pixel_size)
+    Generation.image_size = safe_float(img_size, 512) # Default image size 512
+    Generation.metal_atom = safe_int(metal_atom, 42) # Default Mo
+    Generation.chalcogen_atom = safe_int(chal_atom, 16) # Default S
+    Generation.lattice_constant_a = safe_float(lattice_const, 3.16) # Default MoS2 lattice constant
+    Generation.doped_metal_atom = safe_int(sub_atom_metal, 42) # Default Mo
+    Generation.metal_atom_concentration = safe_float(metal_sub_conc)
+    Generation.metal_atom_vacancy_concentration = safe_float(metal_vac_conc)
+    Generation.doped_chalcogen_atom = safe_int(sub_atom_chal, 16)
+    Generation.chalcogen_atom_concentration_two_subsititution = safe_float(sub_two_conc)
+    Generation.chalcogen_atom_concentration_one_subsititution = safe_float(sub_one_conc)
+    Generation.chalcogen_atom_concentration_one_vacancy = safe_float(vac_one_conc)
+    Generation.chalcogen_atom_concentration_two_vacancy = safe_float(vac_two_conc)
     
-    Generation.voltage = float(voltage)
-    Generation.Cs3_param_mean = float(cs3_mean)
-    Generation.Cs3_param_std = float(cs3_std)
-    Generation.Cs5_param_mean = float(cs5_mean)
-    Generation.Cs5_param_std = float(cs5_std)
-    Generation.df = float(defocus)
-    Generation.aperture = float(aperture)
-    Generation.ADF_angle_min = float(adf_angle_min)
-    Generation.ADF_angle_max = float(adf_angle_max)
-    Generation.Source_size_param_mean = float(src_size_mean)
-    Generation.Source_size_param_std = float(src_size_std)
-    Generation.defocus_spread_param_mean = float(defoc_spread_mean)
-    Generation.defocus_spread_param_std = float(defoc_spread_std)
-    Generation.probe_current_param_mean = float(probe_cur_mean)
-    Generation.probe_current_param_std = float(probe_cur_std)
-    Generation.dwell_time = float(dwell_time)
+    Generation.voltage = safe_float(voltage, 300) # Default 300kV
+    Generation.Cs3_param_mean = safe_float(cs3_mean)
+    Generation.Cs3_param_std = safe_float(cs3_std)
+    Generation.Cs5_param_mean = safe_float(cs5_mean)
+    Generation.Cs5_param_std = safe_float(cs5_std)
+    Generation.df = safe_float(defocus)
+    Generation.aperture = safe_float(aperture, 25) # Default 25 mrad
+    Generation.ADF_angle_min = safe_float(adf_angle_min, 70)
+    Generation.ADF_angle_max = safe_float(adf_angle_max, 200)
+    Generation.Source_size_param_mean = safe_float(src_size_mean, 0.5) # Default 0.5
+    Generation.Source_size_param_std = safe_float(src_size_std)
+    Generation.defocus_spread_param_mean = safe_float(defoc_spread_mean, 10) # Default 10
+    Generation.defocus_spread_param_std = safe_float(defoc_spread_std)
+    Generation.probe_current_param_mean = safe_float(probe_cur_mean, 100) # Default 100
+    Generation.probe_current_param_std = safe_float(probe_cur_std)
+    Generation.dwell_time = safe_float(dwell_time, 1.0) # Default 1.0 us
     
-    # Run the generation process with batch_size
-    print(f"Starting generation with batch_size: {batch_size}")
-    try:
-        result = Generation.run_generation(int(batch_size))
-        print(f"Generation completed. Output folder: {result}")
-    except Exception as e:
-        print(f"Error during generation: {e}")
-        import traceback
-        traceback.print_exc()
-    
+    # Run the generation process
+    Generation.run_generation(int(batch_size))
     return n_clicks
 
 
